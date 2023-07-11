@@ -20,7 +20,7 @@ class Hunter:
         # Configure Firefox options for headless mode
         options = Options()
         options.headless = True
-        self.browser = webdriver.Firefox(options=options, executable_path="../drivers/geckodriver")
+        self.browser = webdriver.Firefox(options=options)
 
     def start(self):
         self.browser.get(self.url)

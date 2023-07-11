@@ -1,4 +1,5 @@
 .env
 *.log
+*.pem
 history.txt
 __pycache__/
