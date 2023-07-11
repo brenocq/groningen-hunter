@@ -10,6 +10,9 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = os.environ.get('CHAT_ID')
 bot = telebot.TeleBot(BOT_TOKEN)
 
+chat_ids = CHAT_ID.split(',')
+print(f'Messages will be sent to: {chat_ids}')
+
 @bot.message_handler(commands=['chatid'])
 def send_chatid(message):
     bot.reply_to(message, f'Your Chat ID is {message.chat.id}')
@@ -17,6 +20,10 @@ def send_chatid(message):
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, 'I\'m hunting some apartments right now!')
+
+def send_message(message):
+    for chat_id in chat_ids:
+        bot.send_message(chat_id, message)
 
 runHunters = True
 def hunters():
@@ -46,8 +53,8 @@ def hunters():
                 Price: {prey.price}
                 Link: {prey.link}
             ''')
-            bot.send_message(CHAT_ID, message)
-        time.sleep(10)
+            send_message(message)
+        time.sleep(5*60)
     print('Stop hunters')
     pararius.stop()
 

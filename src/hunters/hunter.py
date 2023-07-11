@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 
 class Prey:
     def __init__(self, name, price, link, agency, website):
@@ -14,7 +15,12 @@ class Hunter:
     def __init__(self, name, url):
         self.name = name
         self.url = url
-        self.browser = webdriver.Firefox(executable_path="../drivers/geckodriver")
+
+
+        # Configure Firefox options for headless mode
+        options = Options()
+        options.headless = True
+        self.browser = webdriver.Firefox(options=options, executable_path="../drivers/geckodriver")
 
     def start(self):
         self.browser.get(self.url)
