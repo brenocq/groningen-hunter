@@ -38,7 +38,9 @@ def hunters():
         try:
             preys += pararius.check()
         except Exception as e:
-            print(f'Found error when running hunters: {str(e)}')
+            message = f'Found error when running hunters: {str(e)}'
+            print(message)
+            send_message(message)
 
         # Filter preys
         filtered_preys = history.filter(preys)
