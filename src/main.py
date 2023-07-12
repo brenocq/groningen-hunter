@@ -23,7 +23,6 @@ def send_welcome(message):
     bot.reply_to(message, 'I\'m hunting some apartments right now!')
 
 def send_message(message):
-    #print(message)
     for chat_id in chat_ids:
         bot.send_message(chat_id, message)
 
@@ -40,7 +39,7 @@ def run_hunters():
         # Get preys
         try:
             for hunter in hunters:
-                preys += hunter.check()
+                preys += hunter.hunt()
         except Exception as e:
             message = f'Found error when running hunters: {str(e)}'
             print(message)

@@ -1,6 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
+# Configure Firefox options for headless mode (only one instance)
+options = Options()
+options.headless = True
+browser = webdriver.Firefox(options=options)
+
 class Prey:
     def __init__(self, name, price, link, agency, website):
         self.name = name
@@ -16,14 +21,16 @@ class Hunter:
         self.name = name
         self.url = url
 
-
-        # Configure Firefox options for headless mode
-        options = Options()
-        options.headless = True
-        self.browser = webdriver.Firefox(options=options)
-
     def start(self):
-        self.browser.get(self.url)
+        pass
 
     def stop(self):
-        self.browser.close()
+        browser.close()
+
+    def hunt(self):
+        browser.get(self.url)
+        return self.process()
+
+    def process(self):
+        # This method should be overloaded by derived classes
+        pass

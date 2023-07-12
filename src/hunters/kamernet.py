@@ -1,4 +1,4 @@
-from hunters.hunter import Hunter, Prey
+from hunters.hunter import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,12 +10,9 @@ class Kamernet(Hunter):
         url = 'https://kamernet.nl/en/for-rent/rooms-groningen?radius=5&minSize=1&maxRent=12&listingTypes=4&listingTypes=2'
         super().__init__(name, url)
 
-    def check(self):
-        # Refresh
-        self.browser.refresh()
-
+    def process(self):
         # Get list
-        wait = WebDriverWait(self.browser, 10)
+        wait = WebDriverWait(browser, 10)
         item_list = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'search-result-page')))
         items = item_list.find_elements(By.XPATH, './div')
 
