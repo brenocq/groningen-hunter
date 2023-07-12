@@ -4,6 +4,7 @@ import threading
 import time
 import textwrap
 from hunters.pararius import Pararius
+from hunters.kamernet import Kamernet
 from history import History
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
@@ -22,21 +23,24 @@ def send_welcome(message):
     bot.reply_to(message, 'I\'m hunting some apartments right now!')
 
 def send_message(message):
+    #print(message)
     for chat_id in chat_ids:
         bot.send_message(chat_id, message)
 
 runHunters = True
-def hunters():
-    pararius = Pararius()
+def run_hunters():
+    hunters =  [Kamernet(), Pararius()]
 
     print('Start hunters')
-    pararius.start()
+    for hunter in hunters:
+        hunter.start()
     history = History('history.txt')
     while runHunters:
         preys = []
         # Get preys
         try:
-            preys += pararius.check()
+            for hunter in hunters:
+                preys += hunter.check()
         except Exception as e:
             message = f'Found error when running hunters: {str(e)}'
             print(message)
@@ -58,9 +62,10 @@ def hunters():
             send_message(message)
         time.sleep(5*60)
     print('Stop hunters')
-    pararius.stop()
+    for hunter in hunters:
+        hunter.stop()
 
-t = threading.Thread(target=hunters)
+t = threading.Thread(target=run_hunters)
 t.start()
 bot.infinity_polling()
 runHunters = False
