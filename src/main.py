@@ -6,6 +6,7 @@ import textwrap
 from hunters.pararius import Pararius
 from hunters.kamernet import Kamernet
 from hunters.gruno import Gruno
+from hunters.wonen123 import Wonen123
 from history import History
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
@@ -30,7 +31,7 @@ def send_message(message):
 
 runHunters = True
 def run_hunters():
-    hunters =  [Gruno(), Kamernet(), Pararius()]
+    hunters =  [Wonen123(), Gruno(), Kamernet(), Pararius()]
 
     print('Start hunters')
     for hunter in hunters:
