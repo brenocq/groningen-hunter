@@ -5,6 +5,7 @@ import time
 import textwrap
 from hunters.pararius import Pararius
 from hunters.kamernet import Kamernet
+from hunters.gruno import Gruno
 from history import History
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
@@ -25,10 +26,11 @@ def send_welcome(message):
 def send_message(message):
     for chat_id in chat_ids:
         bot.send_message(chat_id, message)
+        #print(message)
 
 runHunters = True
 def run_hunters():
-    hunters =  [Kamernet(), Pararius()]
+    hunters =  [Gruno(), Kamernet(), Pararius()]
 
     print('Start hunters')
     for hunter in hunters:
@@ -54,7 +56,7 @@ def run_hunters():
         for prey in filtered_preys:
             message = textwrap.dedent(f'''
                 Name: {prey.name}
-                Agency: {prey.agency}
+                {'Agency: ' + prey.agency if prey.agency is not None else ''}
                 Price: {prey.price}
                 Link: {prey.link}
             ''')
