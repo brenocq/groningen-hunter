@@ -19,6 +19,8 @@ Finally, run the bot. The Telegram bot will keep running and listening for comma
 
 Please refer to the Python scripts for more detailed information on the setup and operations of the hunters and the bot.
 
+If you implement new hunters or develop new features, please create a PR. If you find any bugs, please open a new issue. All help is welcome ;)
+
 ## License
 
 This project is licensed under the terms of the MIT License. See the [LICENSE](LICENSE) file for the full text.
