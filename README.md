@@ -3,7 +3,7 @@
 This Python bot helps you find your perfect apartment in Groningen. It continuously checks various apartment rental websites, looking for new listings that match your preferences. Whenever it finds a potential match, the bot sends a notification to your Telegram account. (Yes I did find the place I'm living today using this bot 😜)
 
 <p align="center">
-  <img src="https://github.com/brenocq/groningen-hunter/assets/17342434/8b72e9f1-5769-4ea0-9195-e0cd1e0ca351" alt="Your image description">
+  <img src="https://github.com/brenocq/groningen-hunter/assets/17342434/6a83c8bc-a704-4d02-be39-b0df89974cc3">
 </p>
 
 ## Features
