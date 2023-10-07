@@ -13,7 +13,10 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = os.environ.get('CHAT_ID')
 bot = telebot.TeleBot(BOT_TOKEN)
 
-chat_ids = CHAT_ID.split(',')
+if CHAT_ID is not None:
+    chat_ids = CHAT_ID.split(',')
+else:
+    chat_ids = []
 print(f'Messages will be sent to: {chat_ids}')
 
 @bot.message_handler(commands=['chatid'])
@@ -40,13 +43,13 @@ def run_hunters():
     while runHunters:
         preys = []
         # Get preys
-        try:
-            for hunter in hunters:
+        for hunter in hunters:
+            try:
                 preys += hunter.hunt()
-        except Exception as e:
-            message = f'Found error when running hunters: {str(e)}'
-            print(message)
-            send_message(message)
+            except Exception as e:
+                message = f'Found error when running hunter: {str(e)}'
+                print(message)
+                send_message(message)
 
         # Filter preys
         filtered_preys = history.filter(preys)
