@@ -13,20 +13,19 @@ class Kamernet(Hunter):
     def process(self):
         # Get list
         wait = WebDriverWait(browser, 10)
-        item_list = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'search-result-page')))
-        items = item_list.find_elements(By.XPATH, './div')
 
-        # Process items
+        # Locate the container holding listings (adjust if necessary)
+        listings_container = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'GridGenerator_root__gJhqx')))
+        listings = listings_container.find_elements(By.CLASS_NAME, 'ListingCard_root__e9Z81')
+
         preys = []
-        for item in items:
-            name = item.find_element(By.CLASS_NAME, 'tile-title').text
-            price = item.find_element(By.CLASS_NAME, 'tile-rent').text
-            price = re.search(r'\d+', price).group()
-            link = item.find_element(By.CLASS_NAME, 'tile-wrapper').get_attribute('href')
-            agency = 'No Agency'
-
-            # Add if available for indefinite time
-            availability = item.find_element(By.CLASS_NAME, 'tile-availability')
-            if 'Indefinite period' in availability.find_element(By.CLASS_NAME, 'left').text:
+        for listing in listings:
+            try:
+                name = listing.find_element(By.CLASS_NAME, 'MuiTypography-subtitle1').text[:-1]
+                price = listing.find_element(By.CLASS_NAME, 'MuiTypography-h5').text.replace("€", "").replace(",", "")
+                link = listing.get_attribute('href')
+                agency = 'No Agency'
                 preys.append(Prey(name, price, link, agency, self.name))
+            except (NoSuchElementException, TimeoutException):
+                continue
         return preys

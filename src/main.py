@@ -40,7 +40,6 @@ def send_welcome(message):
     bot.reply_to(message, 'I\'m hunting some apartments right now!')
 
 def send_message(message):
-    #print(message)
     for chat_id in chat_ids:
         bot.send_message(chat_id, message)
 

@@ -21,9 +21,6 @@ class Pararius(Hunter):
         preys = []
         for item in items:
             try:
-                # Filter by new
-                is_new = item.find_element(By.CLASS_NAME, 'listing-label--new').text
-
                 # Get info
                 name = item.find_element(By.CLASS_NAME, 'listing-search-item__title').text
                 price_text = item.find_element(By.CLASS_NAME, 'listing-search-item__price').text
