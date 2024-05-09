@@ -7,7 +7,7 @@ import re
 class Kamernet(Hunter):
     def __init__(self):
         name = 'Kamernet'
-        url = 'https://kamernet.nl/en/for-rent/rooms-groningen?radius=5&minSize=1&maxRent=12&listingTypes=4&listingTypes=2'
+        url = 'https://kamernet.nl/en/for-rent/rooms-groningen?radius=5&minSize=1&maxRent=17&listingTypes=4&listingTypes=2'
         super().__init__(name, url)
 
     def process(self):

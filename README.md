@@ -49,17 +49,32 @@ cd groningen-hunter
 pip install -r requirements.txt
 ```
 
+### Arch setup
+Run the following commands
+```
+sudo pacman -Sy firefox geckodriver
+git clone https://github.com/brenocq/groningen-hunter.git
+cd groningen-hunter
+pip install -r requirements.txt
+```
+
 ### Running the bot
-We now need to use the BOT API TOKEN, run the command:
+Before running the bot we need to set the BOT API TOKEN, create a file `.env` with the the bot token. You can also set the chat ID and the maximum price you are looking for.
 
 ```
-echo 'export BOT_TOKEN="YOUR-BOT-HTTP-API-TOKEN"' >> ~/.bashrc
+touch src/.env
+```
+
+The file should look like this:
+```
+BOT_TOKEN="YOUR-BOT-HTTP-API-TOKEN"
+CHAT_ID="YOUR-CHAT_ID"
+MAXIMUM_PRICE=1000
 ```
 
 Let's run the bot to test if it is working:
 
 ```
-source ~/.bashrc
 cd src
 python3 main.py
 ```
@@ -70,16 +85,9 @@ The bot is now running, but we need to get the Chat ID to be able to receive the
 /chatid
 ```
 
-The bot should ansewr you with the Chat ID. Set the Chat ID on the terminal and run the bot on the terminal again
+The bot should answer you with the Chat ID, set the Chat ID on the `.env` file and run the bot again
 
 ```
-echo 'export CHAT_ID="YOUT-CHAT-ID"' >> ~/.bashrc
-```
-
-The bot should be ready now. Open a new terminal a run:
-
-```
-cd groningen-hunter/src
 python3 main.py
 ```
 

@@ -8,7 +8,7 @@ import re
 class Gruno(Hunter):
     def __init__(self):
         name = 'Gruno Verhuur'
-        url = 'https://www.grunoverhuur.nl/huuraanbod/?search_property&lang=nl&property_type&property_area&property_bedrooms&property_city=Groningen&price_min=300%2C00&price_max=1.250%2C00'
+        url = 'https://www.grunoverhuur.nl/huuraanbod/?search_property&lang=nl&property_type&property_area&property_bedrooms&property_city=Groningen&price_min=300%2C00&price_max=2.500%2C00'
         super().__init__(name, url)
 
     def process(self):

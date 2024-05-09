@@ -8,7 +8,7 @@ import re
 class Pararius(Hunter):
     def __init__(self):
         name = 'Pararius'
-        url = 'https://www.pararius.nl/huurwoningen/groningen/0-1200'
+        url = 'https://www.pararius.nl/huurwoningen/groningen'
         super().__init__(name, url)
 
     def process(self):

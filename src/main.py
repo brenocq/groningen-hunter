@@ -8,16 +8,28 @@ from hunters.kamernet import Kamernet
 from hunters.gruno import Gruno
 from hunters.wonen123 import Wonen123
 from history import History
+from dotenv import load_dotenv
 
+load_dotenv()
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = os.environ.get('CHAT_ID')
-bot = telebot.TeleBot(BOT_TOKEN)
+MAXIMUM_PRICE = os.environ.get('MAXIMUM_PRICE')
+
+if BOT_TOKEN is None:
+    print('BOT_TOKEN was not set! Make sure your .bashrc is well configured')
 
 if CHAT_ID is not None:
     chat_ids = CHAT_ID.split(',')
 else:
     chat_ids = []
 print(f'Messages will be sent to: {chat_ids}')
+
+if MAXIMUM_PRICE is None:
+    print('MAXIMUM_PRICE was not set! No filter will be applied')
+else:
+    print(f'MAXIMUM_PRICE is set to {MAXIMUM_PRICE}')
+
+bot = telebot.TeleBot(BOT_TOKEN)
 
 @bot.message_handler(commands=['chatid'])
 def send_chatid(message):
@@ -28,13 +40,13 @@ def send_welcome(message):
     bot.reply_to(message, 'I\'m hunting some apartments right now!')
 
 def send_message(message):
+    #print(message)
     for chat_id in chat_ids:
         bot.send_message(chat_id, message)
-        #print(message)
 
 runHunters = True
 def run_hunters():
-    hunters =  [Wonen123(), Gruno(), Kamernet(), Pararius()]
+    hunters = [Wonen123(), Gruno(), Kamernet(), Pararius()]
 
     print('Start hunters')
     for hunter in hunters:
@@ -51,10 +63,14 @@ def run_hunters():
                 print(message)
                 send_message(message)
 
-        # Filter preys
+        # Filter already seen preys
         filtered_preys = history.filter(preys)
         if len(filtered_preys) > 0:
             print(f'Found {len(filtered_preys)} new preys')
+
+        # Filter expensive preys
+        if MAXIMUM_PRICE is not None:
+            filtered_preys = [prey for prey in filtered_preys if int(prey.price) <= int(MAXIMUM_PRICE)]
 
         # Send telegram message
         for prey in filtered_preys:
