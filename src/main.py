@@ -14,6 +14,7 @@ load_dotenv()
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = os.environ.get('CHAT_ID')
 MAXIMUM_PRICE = os.environ.get('MAXIMUM_PRICE')
+MINIMUM_PRICE = os.environ.get('MINIMUM_PRICE')
 
 if BOT_TOKEN is None:
     print('BOT_TOKEN was not set! Make sure your .bashrc is well configured')
@@ -28,6 +29,11 @@ if MAXIMUM_PRICE is None:
     print('MAXIMUM_PRICE was not set! No filter will be applied')
 else:
     print(f'MAXIMUM_PRICE is set to {MAXIMUM_PRICE}')
+
+if MINIMUM_PRICE is None:
+    print('MINIMUM_PRICE was not set! No filter will be applied')
+else:
+    print(f'MINIMUM_PRICE is set to {MINIMUM_PRICE}')
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -67,9 +73,13 @@ def run_hunters():
         if len(filtered_preys) > 0:
             print(f'Found {len(filtered_preys)} new preys')
 
-        # Filter expensive preys
+        # Filter maximum price
         if MAXIMUM_PRICE is not None:
             filtered_preys = [prey for prey in filtered_preys if int(prey.price) <= int(MAXIMUM_PRICE)]
+
+        # Filter minimum price
+        if MINIMUM_PRICE is not None:
+            filtered_preys = [prey for prey in filtered_preys if int(prey.price) >= int(MINIMUM_PRICE)]
 
         # Send telegram message
         for prey in filtered_preys:

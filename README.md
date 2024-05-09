@@ -59,7 +59,7 @@ pip install -r requirements.txt
 ```
 
 ### Running the bot
-Before running the bot we need to set the BOT API TOKEN, create a file `.env` with the the bot token. You can also set the chat ID and the maximum price you are looking for.
+Before running the bot we need to set the BOT API TOKEN, create a file `.env` with the the bot token. You can also set the chat ID, minimum price, and maximum price you are looking for.
 
 ```
 touch src/.env
@@ -70,6 +70,7 @@ The file should look like this:
 BOT_TOKEN="YOUR-BOT-HTTP-API-TOKEN"
 CHAT_ID="YOUR-CHAT_ID"
 MAXIMUM_PRICE=1000
+MINIMUM_PRICE=300
 ```
 
 Let's run the bot to test if it is working:
