@@ -32,64 +32,48 @@ We will install the Windows Subsystem for Linux. Open the "Command Prompt" (you 
 wsl --install
 ```
 
-Open the Ubuntu program. I got some Firefox errors on my WSL, I followed the steps [here](https://askubuntu.com/questions/1444962/how-do-i-install-firefox-in-wsl-when-it-requires-snap-but-snap-doesnt-work) to solve it.
+Open the Ubuntu program and now you can follow the Ubuntu setup.
 
+### Linux setup
+Run the following commands. Make sure docker is properly installed and running on your system.
 
-You can now follow the Ubuntu setup.
-
-### Ubuntu setup
-Run the following commands
 ```
-sudo add-apt-repository ppa:mozillateam/ppa
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install git python3 python3-pip firefox
 git clone https://github.com/brenocq/groningen-hunter.git
 cd groningen-hunter
-pip install -r requirements.txt
-```
-
-### Arch setup
-Run the following commands
-```
-sudo pacman -Sy firefox geckodriver
-git clone https://github.com/brenocq/groningen-hunter.git
-cd groningen-hunter
-pip install -r requirements.txt
+./hunter.sh --build
 ```
 
 ### Running the bot
-Before running the bot we need to set the BOT API TOKEN, create a file `.env` with the the bot token. You can also set the chat ID, minimum price, and maximum price you are looking for.
+Before running the bot, we need to set the Telegram HTTP API token
 
 ```
-touch src/.env
+./hunter.sh --set-bot-token "YOUR-TELEGRAM-BOT-TOKEN"
+./hunter.sh --run
 ```
 
-The file should look like this:
-```
-BOT_TOKEN="YOUR-BOT-HTTP-API-TOKEN"
-CHAT_ID="YOUR-CHAT_ID"
-MAXIMUM_PRICE=1000
-MINIMUM_PRICE=300
-```
-
-Let's run the bot to test if it is working:
-
-```
-cd src
-python3 main.py
-```
-
-The bot is now running, but we need to get the Chat ID to be able to receive the apartment notifications. Send the following message to your bot on Telegram:
+The bot is now running, but we need to get the Chat ID to be able to receive the apartment notifications in our Telegram chat. Send the following message to your bot on Telegram:
 
 ```
 /chatid
 ```
 
-The bot should answer you with the Chat ID, set the Chat ID on the `.env` file and run the bot again
+The bot should answer you with the Chat ID, set the hunter Chat ID
 
 ```
-python3 main.py
+./hunter.sh --set-chat-id "YOUR-CHAT-ID"
+```
+
+It is also possible to configure the maximum and minimum prices to filter the apartments with the `--set-min` and `--set-max` commands. For example:
+
+```
+./hunter.sh --set-max 1000
+./hunter.sh --set-min 300
+```
+
+All set up! You can now leave the bot running and wait for the notifications :)
+
+```
+./hunter.sh --run
 ```
 
 If you implement new hunters or develop new features, please create a PR. If you find any bugs, please open a new issue. All help is welcome ;)
