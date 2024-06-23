@@ -64,9 +64,10 @@ def run_hunters():
             try:
                 preys += hunter.hunt()
             except Exception as e:
-                message = f'Found error when running hunter: {str(e)}'
+                message = f'Found error when running hunter "{hunter.name}": {str(e)}'
                 print(message)
-                send_message(message)
+                # Optional: Send message on error
+                # send_message(message)
 
         # Filter already seen preys
         filtered_preys = history.filter(preys)

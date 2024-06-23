@@ -1,10 +1,11 @@
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 
-# Configure Firefox options for headless mode (only one instance)
-options = Options()
-options.headless = True
-browser = webdriver.Firefox(options=options)
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.binary_location = "/usr/bin/google-chrome-stable"
+browser = webdriver.Chrome(options=options)
 
 class Prey:
     def __init__(self, name, price, link, agency, website):
