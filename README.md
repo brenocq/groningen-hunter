@@ -26,16 +26,25 @@ Follow the BotFather steps!
 When you are done, he should tell you the HTTP API token, we'll need this later.
 
 ### Windows setup
-We will install the Windows Subsystem for Linux. Open the "Command Prompt" (you can seach cmd on Windows search bar) and run the following command:
+We will install the Windows Subsystem for Linux (WSL). Open the "Windows PowerShell" and run the following command:
 
 ```
 wsl --install
 ```
 
-Open the Ubuntu program and now you can follow the Ubuntu setup.
+Restart the computer and open the Ubuntu program. You can now follow the Ubuntu setup.
 
-### Linux setup
-Run the following commands. Make sure docker is properly installed and running on your system.
+### Ubuntu setup
+If you don't have docker installed, install docker.
+```
+sudo snap install docker
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+newgrp docker
+sudo chown root:docker /var/run/docker.sock
+```
+
+Then, clone the repository and build the Groningen Hunter.
 
 ```
 git clone https://github.com/brenocq/groningen-hunter.git
@@ -44,20 +53,20 @@ cd groningen-hunter
 ```
 
 ### Running the bot
-Before running the bot, we need to set the Telegram HTTP API token
+Before running the bot, we need to set the Telegram HTTP API token (the one you got from the BotFather)
 
 ```
 ./hunter.sh --set-bot-token "YOUR-TELEGRAM-BOT-TOKEN"
 ./hunter.sh --run
 ```
 
-The bot is now running, but we need to get the Chat ID to be able to receive the apartment notifications in our Telegram chat. Send the following message to your bot on Telegram:
+The bot is now running, but we need to get the Chat ID to be able to receive the apartment notifications in our Telegram chat. Send the following message to your bot on Telegram.
 
 ```
 /chatid
 ```
 
-The bot should answer you with the Chat ID, set the hunter Chat ID
+The bot should answer you with the Chat ID, set the hunter Chat ID.
 
 ```
 ./hunter.sh --set-chat-id "YOUR-CHAT-ID"
